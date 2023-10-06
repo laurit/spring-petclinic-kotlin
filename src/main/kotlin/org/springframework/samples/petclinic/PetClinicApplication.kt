@@ -15,13 +15,8 @@
  */
 package org.springframework.samples.petclinic
 
-import io.micrometer.core.instrument.MeterRegistry
-import io.micrometer.core.instrument.Metrics
-import java.util.*
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.runApplication
-import org.springframework.context.annotation.Bean
 
 /**
  * PetClinic Spring Boot Application.
@@ -31,20 +26,6 @@ import org.springframework.context.annotation.Bean
  */
 @SpringBootApplication
 class PetClinicApplication {
-    // Unregister the OpenTelemetryMeterRegistry from Metrics.globalRegistry and make it available
-    // as a Spring bean instead.
-    @Bean
-    @ConditionalOnClass(name = ["io.opentelemetry.javaagent.OpenTelemetryAgent"])
-    fun otelRegistry(): MeterRegistry? {
-        val otelRegistry =
-                Metrics.globalRegistry
-                        .getRegistries()
-                        .stream()
-                        .filter { r -> r.javaClass.name.contains("OpenTelemetryMeterRegistry") }
-                        .findAny()
-        otelRegistry.ifPresent { r -> Metrics.globalRegistry.remove(r) }
-        return otelRegistry.orElse(null)
-    }
 }
 
 fun main(args: Array<String>) {

@@ -5,7 +5,6 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
-import org.springframework.samples.petclinic.config.OtelConfig
 import org.springframework.samples.petclinic.vet.VetRepository
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
